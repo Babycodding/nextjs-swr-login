@@ -24,6 +24,7 @@ export default function Home() {
     moduleId: "web-authen",
   });
 
+  // จะยิงตลอด
   const { loading, loggedOut, user, error, mutate } = useLogin(auth);
 
   const handleChange = (e: any) => {
