@@ -34,7 +34,11 @@ export default function Home() {
   };
 
   const handleClick = () => {
-    mutate(authenHost, authen(auth));
+    if (auth.username !== "" && auth.password !== "") {
+      mutate(authenHost, authen(auth)).then((res:any)=>{
+        Router.push({pathname:'/home'})
+      });
+    }
   };
   return (
     <>
