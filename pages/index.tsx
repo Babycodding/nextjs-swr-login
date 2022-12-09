@@ -11,6 +11,8 @@ import {
 } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import useLogin from "../service/authen/authen.hook";
+import { mutate } from "swr";
+import { authen } from "../service/authen/authen.fetch";
 
 const authenHost =
   "https://api-internal-sit.dohome.technology/authen-gm/oauth2/login";
@@ -25,18 +27,14 @@ export default function Home() {
   });
 
   // จะยิงตลอด
-  const { loading, loggedOut, user, error, mutate } = useLogin(auth);
+  // const { loading, loggedOut, user, error, mutate } = useLogin(auth);
 
   const handleChange = (e: any) => {
     setAuth({ ...auth, [e.target.name]: e.target.value });
   };
 
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
-
   const handleClick = () => {
-    mutate(auth);
+    mutate(authenHost, authen(auth));
   };
   return (
     <>
