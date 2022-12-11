@@ -15,8 +15,7 @@ import { mutate } from "swr";
 import { authen } from "../service/authen/authen.fetch";
 import Head from "next/head";
 
-const authenHost =
-  "https://api-internal-sit.dohome.technology/authen-gm/oauth2/login";
+const authenHost = `${process.env.NEXT_PUBLIC_HOST_ENDPOINT}${process.env.NEXT_PUBLIC_API_AUTHEN}`;
 
 export default function Home() {
   const { isBrowser } = useSSR();
@@ -37,7 +36,7 @@ export default function Home() {
   const handleClick = () => {
     if (auth.username !== "" && auth.password !== "") {
       mutate(authenHost, authen(auth)).then((res: any) => {
-        Router.push({ pathname: "/home" });
+        Router.push({ pathname: "/dashboard" });
       });
     }
   };

@@ -9,8 +9,7 @@ interface IDecode {
   uuid: string;
 }
 
-const authenHost =
-  "https://api-internal-sit.dohome.technology/authen-gm/oauth2/login";
+const authenHost = `${process.env.NEXT_PUBLIC_HOST_ENDPOINT}${process.env.NEXT_PUBLIC_API_AUTHEN}`;
 
 export const login = (url: any, params: any) =>
   fetch(url, { method: "POST", body: JSON.stringify(params) }).then((r) =>

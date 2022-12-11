@@ -1,8 +1,7 @@
 import useSWR, { mutate } from "swr";
 import { login } from "./authen.fetch";
 
-const authenHost =
-  "https://api-internal-sit.dohome.technology/authen-gm/oauth2/login";
+const authenHost = `${process.env.NEXT_PUBLIC_HOST_ENDPOINT}${process.env.NEXT_PUBLIC_API_AUTHEN}`;
 
 export default function useLogin(params?: any) {
   const { data, mutate, error } = useSWR([authenHost, params], login, {
