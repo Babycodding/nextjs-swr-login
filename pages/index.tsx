@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import useLogin from "../service/authen/authen.hook";
 import { mutate } from "swr";
 import { authen } from "../service/authen/authen.fetch";
+import Head from "next/head";
 
 const authenHost =
   "https://api-internal-sit.dohome.technology/authen-gm/oauth2/login";
@@ -35,13 +36,17 @@ export default function Home() {
 
   const handleClick = () => {
     if (auth.username !== "" && auth.password !== "") {
-      mutate(authenHost, authen(auth)).then((res:any)=>{
-        Router.push({pathname:'/home'})
+      mutate(authenHost, authen(auth)).then((res: any) => {
+        Router.push({ pathname: "/home" });
       });
     }
   };
   return (
     <>
+      <Head>
+        <title>Login</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <Container css={{ h: "100%" }}>
         <Row justify="center" align="center" css={{ h: "100%" }}>
           <Card css={{ mw: "400px" }}>

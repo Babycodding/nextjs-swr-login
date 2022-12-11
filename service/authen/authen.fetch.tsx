@@ -1,3 +1,14 @@
+import { parseJwt } from "../util/jwtDecode";
+import { getCookie } from "../util/cookie";
+interface IDecode {
+  employeeLevel: string;
+  exp: number;
+  positionName: string;
+  userId: string;
+  userName: string;
+  uuid: string;
+}
+
 const authenHost =
   "https://api-internal-sit.dohome.technology/authen-gm/oauth2/login";
 
@@ -16,10 +27,20 @@ export const authen = (params: any) => {
         return r.json();
       })
       .then((r) => {
-        localStorage.setItem("userModule", JSON.stringify(r));
+        const _parseJwt: IDecode = parseJwt(r.token);
+        const expire: Date = new Date(_parseJwt.exp);
+        document.cookie = `token=${
+          r.token
+        };expires=${expire.toISOString()};path=/`;
         return r;
       });
   } catch (err: any) {
     return err;
   }
+};
+
+export const getUser = (): IDecode => {
+  const _token: string = getCookie("token");
+  const _parseJwt: IDecode = parseJwt(_token);
+  return _parseJwt;
 };
